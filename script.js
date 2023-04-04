@@ -1,7 +1,7 @@
 function script(){
     //Define o Index e o Link da API inicial, e cria a variavel que armazena a ultima direção clicada; 
     let fetchLink = 'https://api.themoviedb.org/3/movie/2?api_key=e7cadc1cedffc92c23e6176622d0bf4d'
-    let index = 1;
+    let index = 2;
     let lastDirection;
 // =====================================
 
@@ -20,17 +20,16 @@ function script(){
 // Muda o link da Api quando clicado na seta;
     async function changeLinkIndex(direction){
         lastDirection = direction;
-        if(index===0 && direction==="right"){index+=1}else if(index===0 && direction==="left"){}else{
+        if(index===0 && direction==="right"){index+=1}else if(index==2 && direction=="left"){}else{
             direction==="right"? index += 1:index -= 1;}        
             fetchLink = 'https://api.themoviedb.org/3/movie/' + index + '?api_key=e7cadc1cedffc92c23e6176622d0bf4d';
        doValidation()
         .then(validation=>{if(!validation){
-                changeLinkIndex(lastDirection);
+                if(index!=0){changeLinkIndex(lastDirection)};
 
             }else{updateScreen();}
         })
-        // Assim que for true, atualizo a página.
-        
+// Assim que for true, atualizo a página.        
     }
 
     async function doValidation(){
@@ -70,11 +69,7 @@ function script(){
 
 //Faz as requisições das 3 ultimas funções acima, atualizando a página. 
     function updateScreen(){
-        
-        getFetch(fetchLink).then(changeTitle);
-        getFetch(fetchLink).then(changeInfo);
-        getFetch(fetchLink).then(changeImg);  
-    
+        getFetch(fetchLink).then(data=>{changeInfo(data); changeImg(data); changeTitle(data)});
     }
 
 }
