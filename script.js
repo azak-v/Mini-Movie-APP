@@ -56,9 +56,9 @@ function script(){
 //Muda a informação do filme
     function changeInfo(json){
         const info = document.querySelector("p");
-        const infoValue = json.budget;
-        const keyInfo = Object.keys(json)[3];
-        info.textContent =  keyInfo + ': '+ "$"+ infoValue //Tentar por isso em uma função
+        const infoValue = json.overview;
+        const keyInfo = Object.keys(json)[10];
+        info.textContent =  keyInfo + ': '+ infoValue //Tentar por isso em uma função
     }
 
 //Muda a imagem de capa do filme
